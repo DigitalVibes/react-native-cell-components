@@ -16,14 +16,12 @@ import {
 class DatePicker extends React.Component {
   static defaultProps = {
     date: new Date(),
-    mode: 'date',
-    cancelText: 'Done'
+    mode: 'date'
   }
 
   static propTypes = {
     date: PropTypes.object.isRequired,
-    onDateSelected: PropTypes.func,
-    cancelText: PropTypes.string
+    onDateSelected: PropTypes.func
   }
 
   constructor(props) {
@@ -77,8 +75,6 @@ class DatePicker extends React.Component {
     this.setState({
       date
     });
-
-    this.props.onDateSelected(date);
   }
 
   render() {
@@ -86,7 +82,8 @@ class DatePicker extends React.Component {
       theme.isIOS ?
       <ActionSheet
         ref={component => this._actionSheet = component}
-        cancelText={this.props.cancelText}
+        cancelText="Done"
+        onCancelPress={() => this.props.onDateSelected(this.state.date)}
       >
         <DatePickerIOS
           date={this.state.date}
